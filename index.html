@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Jogo educativo do Pratinho CDU: aprenda Centenas, Dezenas e Unidades de forma interativa jogando contra a CPU com limite de tempo e contagem de cubos.">
+    <title>Jogo: Pratinho CDU</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tutorial.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- <header>
+            <h1>🎯 Jogo do Pratinho CDU</h1>
+            <p class="subtitle">Descubra o valor posicional brincando com Centenas, Dezenas e Unidades!</p>
+        </header> -->
+
+        <!-- Painel de Placar Superior e Status -->
+        <header class="placar-header">
+            <div class="placar-lado jogador" id="placar-jogador">
+                <span class="placar-nome" id="nome-jogador-painel">👤 Jogador</span>
+                <div class="placar-valores" id="valores-jogador">-</div>
+            </div>
+            
+            <!-- Quadro de mensagens e turnos -->
+            <div id="status" aria-live="polite">Carregando jogo...</div>
+            
+            <div class="placar-lado cpu" id="placar-cpu">
+                <span class="placar-nome">💻 CPU</span>
+                <div class="placar-valores" id="valores-cpu">-</div>
+            </div>
+        </header>
+
+        <!-- Representação visual do prato CDU -->
+        <main id="pratinho">
+            <div class="zona c" id="zona-c" title="Centenas">
+                <img src="img/assets/centenas.png" alt="Centenas" class="copo-img">
+                <div class="cubos-container"></div>
+            </div>
+            <div class="zona d" id="zona-d" title="Dezenas">
+                <img src="img/assets/desenas.png" alt="Dezenas" class="copo-img">
+                <div class="cubos-container"></div>
+            </div>
+            <div class="zona u" id="zona-u" title="Unidades">
+                <img src="img/assets/unidades.png" alt="Unidades" class="copo-img">
+                <div class="cubos-container"></div>
+            </div>
+        </main>
+
+        <!-- Painel interativo de botões e respostas -->
+        <section class="controles">
+            <button id="btn-lancar" onclick="lancarCubos()">Lançar Cubos</button>
+
+            <!-- Seção de Resposta (Aparece após o lançamento do jogador) -->
+            <div id="secao-resposta" style="display: none;">
+                <div class="resposta-timer">
+                    ⏱️ Tempo Restante: <span id="timer-contagem">20</span>s
+                </div>
+                <div class="resposta-controles">
+                    <input type="number" id="input-resposta-valor" placeholder="Que número é este?" autocomplete="off"
+                        min="0" max="999" onkeydown="verificarTeclaEnter(event)">
+                    <button id="btn-confirmar-resposta" onclick="confirmarResposta()">Confirmar</button>
+                </div>
+            </div>
+        </section>
+
+        
+    </div>
+
+    <!-- Overlay de vitória e reinício (fim de jogo) -->
+    <div id="overlay-vitoria" class="overlay" style="display: none;">
+        <canvas id="canvas-confete"></canvas>
+        <div id="cartao-vitoria">
+            <div class="trofeu-icon">🏆</div>
+            <h1 id="vencedor-titulo">Jogador 1 Venceu!</h1>
+            <p id="vencedor-subtitulo">Parabéns pelo excelente lançamento!</p>
+
+            <div class="detalhes-placar">
+                <div class="jogador-placar" id="placar-box-j1">
+                    <span class="placar-nome" id="placar-j1-nome">Jogador 1</span>
+                    <span class="placar-pontos" id="placar-j1-pontos">0</span>
+                    <div id="tabela-j1-container" class="tabela-container"></div>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="jogador-placar" id="placar-box-j2">
+                    <span class="placar-nome" id="placar-j2-nome">Jogador 2</span>
+                    <span class="placar-pontos" id="placar-j2-pontos">0</span>
+                    <div id="tabela-j2-container" class="tabela-container"></div>
+                </div>
+            </div>
+
+            <button id="btn-reiniciar" onclick="reiniciarJogo()">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <!-- Overlay de início (cadastro de nome) -->
+    <div id="overlay-inicio" class="overlay">
+        <button id="btn-ajuda-tutorial" onclick="reiniciarTutorialManual()" title="Como Jogar">
+            <span class="tutorial-icon">?</span>
+            <span class="tutorial-text-label">TUTORIAL</span>
+        </button>
+        <div id="cartao-inicio">
+            <div class="jogo-icon"><img src="img/assets/MINI_PRATO.png" alt="Pratinho CDU"></div>
+            <h1 id="inicio-titulo">Jogo do Pratinho CDU</h1>
+           <p id="inicio-subtitulo">Digite o seu nome para começar!</p>
+
+            <div class="input-container">
+                <input type="text" id="input-nome" placeholder="Digite seu nome" autocomplete="off" maxlength="15">
+            </div>
+
+            <button id="btn-comecar" onclick="iniciarPartida()">Começar o Jogo</button>
+        </div>
+                                                           
+        
+    </div>
+
+    <!-- Overlay de tempo esgotado -->
+    <div id="overlay-tempo-esgotado" class="overlay" style="display: none;">
+        <div id="cartao-tempo-esgotado">
+            <div class="relogio-icon">⏳</div>
+            <h1 id="tempo-esgotado-titulo">Tempo Esgotado!</h1>
+            <p id="tempo-esgotado-subtitulo">Você não respondeu dentro dos 20 segundos.
+            </p>
+            <button id="btn-continuar-timeout" onclick="continuarAposTempoEsgotado()">Continuar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="tutorial.js"></script>
+
+</body>
+
+</html>

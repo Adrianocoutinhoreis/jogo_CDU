@@ -1,0 +1,1067 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+:root {
+    --bg-primary: #f0f8ff;
+    --bg-card: #ffffff;
+    --text-main: #333333;
+    --text-muted: #2c3e50;
+    --color-c: #28b463;
+    /* Centena - Verde */
+    --color-c-light: #82e0aa;
+    --color-d: #c0392b;
+    /* Dezena - Vermelho */
+    --color-d-light: #f1948a;
+    --color-u: #f39c12;
+    /* Unidade - Amarelo/Laranja */
+    --color-u-light: oklch(89.549% 0.1321 95.663);
+    --wood-color: #4a2311;
+    /* Cor dos cubos de madeira */
+}
+
+/* Layout Geral */
+body {
+    font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('img/bg/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-main);
+    margin: 0;
+    padding: 10px;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 950px;
+    height: 660px;
+    /* Alinhando com a largura de visualização do mockup */
+    background: rgba(200, 226, 250, 0.87);
+    /* Leve tom azulado semi-transparente como o painel da referência */
+    padding: 25px 40px;
+    border-radius: 40px;
+    /* Bordas bem arredondadas como na referência */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header {
+    display: none;
+}
+
+h1 {
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    margin-top: 0;
+    font-size: 16px;
+}
+
+/* Painel de Status */
+#status {
+    font-size: 22px;
+    margin: clamp(5px, 1.2vh, 10px) 0 clamp(10px, 2vh, 25px) 0;
+    font-weight: bold;
+    color: #060d13;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 4px rgba(11, 98, 164, 0.1);
+}
+
+/* Pratinho CDU (Área de Jogo) */
+#pratinho {
+    display: flex;
+    justify-content: center;
+    gap: clamp(10px, 2vw, 25px);
+    margin: clamp(10px, 2.5vh, 35px) 0;
+    flex-wrap: wrap;
+}
+
+.zona {
+    width: 200px;
+    height: 280px;
+    position: relative;
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+}
+
+.zona:hover {
+    transform: scale(1.05);
+}
+
+.copo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.cubos-container {
+    position: absolute;
+    top: 20.4%;
+    left: 12%;
+    right: 12%;
+    height: 28.6%;
+    /* Espaço para acumular os cubinhos confortavelmente */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-end;
+
+    /* Cubos acumulam a partir do fundo da área colorida */
+    padding: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Cubinhos Físicos (Animação de queda) */
+.cubo {
+    width: 20px;
+    height: 20px;
+    background-color: var(--wood-color);
+    border-radius: 3px;
+    margin: 2px;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4);
+    animation: cairDoAlto 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes cairDoAlto {
+    from {
+        transform: translateY(-80px) rotate(45deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Botões e Controladores */
+.controles {
+    height: 165px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    flex-shrink: 0;
+}
+
+button {
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 10px;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    outline: none;
+}
+
+#btn-lancar {
+    background: linear-gradient(135deg, #0082c8, #006aa4);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#btn-lancar:hover {
+    background: linear-gradient(135deg, #0093e0, #007bb6);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 106, 164, 0.35);
+}
+
+#btn-lancar:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 106, 164, 0.3);
+}
+
+#btn-lancar:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+#btn-reiniciar {
+    background: linear-gradient(135deg, #27ae60, #1e8449);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#btn-reiniciar:hover {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(30, 132, 73, 0.35);
+}
+
+#btn-reiniciar:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(30, 132, 73, 0.3);
+}
+
+/* Placar Superior nos Cantos */
+.placar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.placar-lado {
+    display: flex;
+    flex-direction: column;
+    width: 32%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.55;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 10px 15px;
+    border-radius: 18px;
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+.placar-lado.jogador {
+    align-items: flex-start;
+}
+
+.placar-lado.cpu {
+    align-items: flex-end;
+}
+
+.placar-lado.placar-ativo {
+    opacity: 1;
+    transform: scale(1.03);
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #0082c8;
+    box-shadow: 0 8px 20px rgba(0, 130, 200, 0.15);
+}
+
+.placar-nome {
+    font-size: 13px;
+    font-weight: 700;
+    color: #4a6b82;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.placar-valores {
+    font-size: 18px;
+    font-weight: 800;
+    color: #2c3e50;
+    letter-spacing: 0.5px;
+}
+
+/* Destaque do vencedor no placar no final */
+.placar-lado.vencedor-placar {
+    opacity: 1;
+    background: rgba(39, 174, 96, 0.15);
+    border-color: #27ae60;
+}
+
+.placar-lado.vencedor-placar .placar-valores {
+    color: #27ae60;
+}
+
+.destaque-vencedor {
+    font-weight: bold;
+    color: var(--color-c);
+    font-size: 22px;
+    display: inline-block;
+    animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Overlay de Vitória (Fim de Jogo) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 32, 54, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#cartao-vitoria,
+#cartao-inicio,
+#cartao-tempo-esgotado {
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+#canvas-confete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+#cartao-vitoria {
+    position: relative;
+    background: #ffffff;
+    border-radius: 40px;
+    padding: 40px 50px;
+    max-width: 550px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    border: 2px solid #e2effa;
+    z-index: 1002;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.trofeu-icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+    display: inline-block;
+    animation: trofeuFlutuar 2.5s infinite ease-in-out;
+}
+
+@keyframes trofeuFlutuar {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-12px) scale(1.05);
+    }
+}
+
+#vencedor-titulo {
+    font-size: 28px;
+    color: #0b62a4;
+    margin: 10px 0 5px 0;
+    font-weight: 800;
+}
+
+#vencedor-subtitulo {
+    font-size: 15px;
+    color: #7f8c8d;
+    margin: 0 0 30px 0;
+}
+
+.detalhes-placar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #f4f9fd;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1.5px solid #e1effa;
+    margin-bottom: 30px;
+}
+
+.jogador-placar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+}
+
+.placar-nome {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.placar-pontos {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2c3e50;
+    transition: transform 0.3s ease;
+}
+
+/* Destaque para o vencedor do placar */
+.jogador-placar.vencedor-placar .placar-nome {
+    color: #27ae60;
+}
+
+.jogador-placar.vencedor-placar .placar-pontos {
+    color: #27ae60;
+    transform: scale(1.1);
+}
+
+.vs-divider {
+    font-size: 16px;
+    font-weight: 900;
+    color: #b3c2cc;
+    font-style: italic;
+}
+
+#cartao-vitoria #btn-reiniciar,
+#cartao-inicio #btn-comecar {
+    width: 100%;
+    margin: 0;
+}
+
+/* Cartão de Início */
+#cartao-inicio {
+    position: relative;
+    background: #ffffff;
+    border-radius: 40px;
+    padding: 40px 50px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    border: 2px solid #e2effa;
+    z-index: 1002;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.jogo-icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+    display: inline-block;
+    animation: trofeuFlutuar 2.5s infinite ease-in-out;
+}
+
+.jogo-icon img {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+#inicio-titulo {
+    font-size: 28px;
+    color: #0b62a4;
+    margin: 10px 0 5px 0;
+    font-weight: 800;
+}
+
+#inicio-subtitulo {
+    font-size: 15px;
+    color: #7f8c8d;
+    margin: 0 0 25px 0;
+    line-height: 1.4;
+}
+
+.input-container {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+#input-nome {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 14px;
+    border: 2px solid #d0e2f5;
+    background-color: #f7fbfe;
+    color: #2c3e50;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
+    text-align: center;
+}
+
+#input-nome:focus {
+    border-color: #0082c8;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 130, 200, 0.15);
+}
+
+#input-nome::placeholder {
+    color: #b3c2cc;
+    font-weight: 500;
+}
+
+#btn-comecar {
+    background: linear-gradient(135deg, #0082c8, #006aa4);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#btn-comecar:hover {
+    background: linear-gradient(135deg, #0093e0, #007bb6);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 106, 164, 0.35);
+}
+
+#btn-comecar:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 106, 164, 0.3);
+}
+
+/* ==========================================================================
+     SEÇÃO DE RESPOSTA E TEMPORIZADOR
+     ========================================================================== */
+
+#secao-resposta {
+    background: rgba(255, 255, 255, 0.92);
+    padding: clamp(10px, 2vh, 22px) clamp(15px, 3vw, 35px);
+    border-radius: 24px;
+    border: 1.5px solid #e1effa;
+    box-shadow: 0 10px 30px rgba(0, 130, 200, 0.06);
+    margin-top: clamp(10px, 2vh, 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(8px, 1.5vh, 15px);
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+    animation: popIn 0.4s ease;
+}
+
+.resposta-timer {
+    font-size: 20px;
+    font-weight: 800;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Timer piscando vermelho quando restam poucos segundos */
+.resposta-timer.urgente {
+    color: #e74c3c;
+    animation: timerPulsar 0.5s infinite alternate;
+}
+
+@keyframes timerPulsar {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
+}
+
+.resposta-controles {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+}
+
+#input-resposta-valor {
+    width: 200px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 14px;
+    border: 2px solid #d0e2f5;
+    background-color: #f7fbfe;
+    color: #2c3e50;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+#input-resposta-valor:focus {
+    border-color: #0082c8;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 130, 200, 0.15);
+}
+
+/* Elementos com erro: piscam em vermelho e tremem */
+#input-resposta-valor.erro-animacao {
+    border-color: #e74c3c !important;
+    background-color: #fceae9 !important;
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.25) !important;
+    animation: shakeInput 0.4s ease;
+}
+
+@keyframes shakeInput {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-8px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(8px);
+    }
+}
+
+#btn-confirmar-resposta {
+    margin: 0;
+    padding: 12px 26px;
+    font-size: 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0082c8, #006aa4);
+}
+
+#btn-confirmar-resposta:hover {
+    background: linear-gradient(135deg, #0093e0, #007bb6);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 106, 164, 0.25);
+}
+
+#btn-confirmar-resposta:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 106, 164, 0.2);
+}
+
+.cola-teste {
+    font-size: 13px;
+    color: #bdc3c7;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+#cola-valor {
+    font-weight: 700;
+    color: #7f8c8d;
+}
+
+/* Overlay de Tempo Esgotado */
+#cartao-tempo-esgotado {
+    position: relative;
+    background: #ffffff;
+    border-radius: 40px;
+    padding: 40px 50px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    border: 2px solid #e2effa;
+    z-index: 1002;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.relogio-icon {
+    font-size: 70px;
+    margin-bottom: 10px;
+    display: inline-block;
+    animation: trofeuFlutuar 2.5s infinite ease-in-out;
+}
+
+#tempo-esgotado-titulo {
+    font-size: 28px;
+    color: #e74c3c;
+    margin: 10px 0 5px 0;
+    font-weight: 800;
+}
+
+#tempo-esgotado-subtitulo {
+    font-size: 15px;
+    color: #7f8c8d;
+    margin: 0 0 30px 0;
+    line-height: 1.4;
+}
+
+#btn-continuar-timeout {
+    width: 100%;
+    margin: 0;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+#btn-continuar-timeout:hover {
+    background: linear-gradient(135deg, #ff7675, #d63031);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(192, 57, 43, 0.35);
+}
+
+#btn-continuar-timeout:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(192, 57, 43, 0.2);
+}
+
+/* ==========================================================================
+     MEDIA QUERIES - RESPONSIVIDADE ADICIONAL PARA A SEÇÃO DE RESPOSTA
+     ========================================================================== */
+
+@media (max-width: 600px) {
+    #secao-resposta {
+        padding: 15px 20px;
+        gap: 12px;
+        margin-top: 15px;
+        max-width: 100%;
+    }
+
+    .resposta-timer {
+        font-size: 16px;
+    }
+
+    .resposta-controles {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    #input-resposta-valor {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+
+    #btn-confirmar-resposta {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+    #cartao-tempo-esgotado {
+        padding: 25px 20px;
+        border-radius: 28px;
+        width: 92%;
+    }
+
+    #tempo-esgotado-titulo {
+        font-size: 22px;
+    }
+
+    #tempo-esgotado-subtitulo {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .relogio-icon {
+        font-size: 50px;
+        margin-bottom: 5px;
+    }
+
+    #btn-continuar-timeout {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+}
+
+/* ==========================================================================
+    MEDIA QUERIES - RESPONSIVIDADE E ADAPTAÇÃO PARA DISPOSITIVOS MÓVEIS
+    ========================================================================== */
+
+/* Telas Médias (Tablets / Laptops Pequenos - até 850px) */
+@media (max-width: 850px) {
+    .container {
+        padding: 25px;
+        max-width: 95%;
+        border-radius: 30px;
+        height: 580px;
+    }
+
+    .controles {
+        height: 140px;
+        margin: 5px 0;
+    }
+
+    #pratinho {
+        gap: 15px;
+        margin: 25px 0;
+    }
+
+    .zona {
+        width: 180px;
+        height: 250px;
+    }
+
+    .cubo {
+        width: 15px;
+        height: 15px;
+        margin: 2px;
+    }
+
+    button {
+        padding: 14px 30px;
+        font-size: 18px;
+        border-radius: 12px;
+    }
+
+    #cartao-vitoria,
+    #cartao-inicio {
+        padding: 30px 40px;
+    }
+}
+
+/* Telas Pequenas (Smartphones - até 600px) */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        border-radius: 24px;
+        max-width: 98%;
+        height: 520px;
+    }
+
+    .controles {
+        height: 165px;
+        margin: 5px 0;
+    }
+
+    #pratinho {
+        gap: 8px;
+        margin: 20px 0;
+        flex-wrap: nowrap;
+        /* Garante que os pratos fiquem na mesma linha para manter o sentido visual do CDU */
+    }
+
+    .zona {
+        width: 100px;
+        height: 140px;
+    }
+
+    .cubo {
+        width: 9px;
+        height: 9px;
+        margin: 1px;
+        border-radius: 1px;
+        box-shadow: 0.5px 1px 1.5px rgba(0, 0, 0, 0.4);
+    }
+
+    #status {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 10px;
+        width: 100%;
+        /* Botões em coluna e largura total no mobile para facilitar o toque */
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+
+    .placar-lado {
+        padding: 6px 8px;
+        width: 33%;
+        border-radius: 12px;
+    }
+
+    .placar-nome {
+        font-size: 10px;
+    }
+
+    .placar-valores {
+        font-size: 12px;
+    }
+
+    #cartao-vitoria,
+    #cartao-inicio {
+        padding: 25px 20px;
+        border-radius: 28px;
+        width: 92%;
+    }
+
+    #vencedor-titulo,
+    #inicio-titulo {
+        font-size: 22px;
+    }
+
+    #vencedor-subtitulo,
+    #inicio-subtitulo {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .trofeu-icon,
+    .jogo-icon {
+        font-size: 50px;
+        margin-bottom: 5px;
+    }
+
+    .detalhes-placar {
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 14px;
+    }
+
+    .placar-nome {
+        font-size: 11px;
+    }
+
+    .placar-pontos {
+        font-size: 24px;
+    }
+
+    #input-nome {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES - ALTURA (Para evitar overflow vertical em telas curtas)
+   ========================================================================== */
+
+@media (max-height: 750px) {
+    .container {
+        height: 580px;
+        padding: 20px 40px;
+    }
+
+    .controles {
+        height: 140px;
+        margin: 5px 0;
+    }
+
+    .zona {
+        width: 180px;
+        height: 250px;
+    }
+
+    .cubo {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media (max-height: 600px) {
+    .container {
+        height: 460px;
+        padding: 10px 40px;
+    }
+
+    .controles {
+        height: 110px;
+        margin: 2px 0;
+    }
+
+    .zona {
+        width: 135px;
+        height: 190px;
+    }
+
+    .cubo {
+        width: 10px;
+        height: 10px;
+        margin: 1px;
+    }
+}
+
+/* Tabelas de rodadas no overlay de vitória */
+.tabela-container {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.tabela-rodadas {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: #2c3e50;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e1effa;
+}
+
+.tabela-rodadas th {
+    background-color: #0b62a4;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 6px 4px;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.tabela-rodadas td {
+    padding: 6px 4px;
+    text-align: center;
+    border-bottom: 1px solid #f0f4f8;
+    font-weight: 600;
+}
+
+.tabela-rodadas tr:last-child td {
+    border-bottom: none;
+}
+
+.tabela-rodadas tr:nth-child(even) td {
+    background-color: #f8fbfe;
+}
+
+/* Ajusta as cores do cabeçalho da tabela de acordo com o lado (Jogador vs CPU) */
+#placar-box-j1 .tabela-rodadas th {
+    background-color: #0082c8;
+}
+
+#placar-box-j2 .tabela-rodadas th {
+    background-color: #7f8c8d;
+}
+
+/* Quando um jogador é o vencedor, destaca o cabeçalho da tabela em verde */
+#placar-box-j1.vencedor-placar .tabela-rodadas th,
+#placar-box-j2.vencedor-placar .tabela-rodadas th {
+    background-color: #27ae60;
+}
