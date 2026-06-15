@@ -4,6 +4,11 @@ const CONFIG = {
     intervaloCubo: 50   // atraso entre a queda de cada cubo
 };
 
+// Sons do Jogo
+const somCorreto = new Audio('sons/correto.mp3');
+const somErro = new Audio('sons/error-notification.mp3');
+const somVitoria = new Audio('sons/super-smash-bros-bonus-results.mp3');
+
 // Estado da Partida
 let estadoJogo = {
     rodadaAtual: 1,
@@ -228,24 +233,49 @@ function confirmarResposta() {
         clearInterval(temporizadorId);
         document.getElementById('secao-resposta').style.display = 'none';
 
+        // Toca o som de acerto
+        somCorreto.play().catch(err => console.log("Erro ao reproduzir som:", err));
+
         const jogador = estadoJogo.jogadores[0]; // Jogador Humano
         jogador.pontos.push(valorCorretoRodada);
         jogador.total += valorCorretoRodada;
         atualizarPlacarInterface();
 
+        // Feedback visual de acerto no painel de status
+        const status = document.getElementById('status');
+        status.innerHTML = `✨ Correto! +${valorCorretoRodada} ✨`;
+        status.style.borderColor = '#27ae60';
+        status.style.color = '#27ae60';
+        status.style.transform = 'scale(1.1)';
+        status.style.boxShadow = '0 6px 15px rgba(39, 174, 96, 0.3)';
+
         // Avança para a vez da CPU
         estadoJogo.jogadorAtual = 1;
-        atualizarStatus();
-
-        // Aciona a jogada automática da CPU após pequeno delay
-        const status = document.getElementById('status');
-        status.innerText = "CPU está jogando...";
         
+        // Remove destaque ativo de turno temporariamente para focar no acerto
+        const placarJ = document.getElementById('placar-jogador');
+        if (placarJ) placarJ.classList.remove('placar-ativo');
+
+        // Aguarda 1.8 segundos antes de iniciar o turno da CPU
         setTimeout(() => {
-            lancarCPU();
-        }, 1200);
+            // Restaura estilos padrão do status
+            status.style.borderColor = '';
+            status.style.color = '';
+            status.style.transform = '';
+            status.style.boxShadow = '';
+            
+            status.innerText = "CPU está jogando...";
+            atualizarDestaquesPlacar();
+            
+            setTimeout(() => {
+                lancarCPU();
+            }, 1000);
+        }, 1800);
     } else {
         // Resposta Incorreta!
+        // Toca o som de erro
+        somErro.play().catch(err => console.log("Erro ao reproduzir som:", err));
+
         // Faz o input tremer e brilhar em vermelho
         inputElement.classList.add('erro-animacao');
         
@@ -521,6 +551,9 @@ function determinarVencedor() {
         titulo.innerText = `🏆 ${j1.nome} Venceu!`;
         subtitulo.innerText = `Parabéns pela vitória com ${j1.total.toLocaleString('pt-PT')} pontos!`;
         boxJ1.classList.add('vencedor-placar');
+        
+        // Toca o som de vitória
+        somVitoria.play().catch(err => console.log("Erro ao reproduzir som:", err));
     } else if (j2.total > j1.total) {
         titulo.innerText = `🏆 ${j2.nome} Venceu!`;
         subtitulo.innerText = `Parabéns pela vitória com ${j2.total.toLocaleString('pt-PT')} pontos!`;
@@ -544,6 +577,10 @@ function reiniciarJogo() {
     if (document.getElementById('overlay-tempo-esgotado')) {
         document.getElementById('overlay-tempo-esgotado').style.display = 'none';
     }
+
+    // Interrompe e reseta o som de vitória caso esteja tocando
+    somVitoria.pause();
+    somVitoria.currentTime = 0;
 
     estadoJogo = {
         rodadaAtual: 1,
