@@ -252,4 +252,17 @@
     .tutorial-text-label {
         font-size: 11px;
     }
+    .tutorial-balao-mobile {
+        position: fixed !important;
+        bottom: 16px !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+        width: 92% !important;
+        max-width: 400px !important;
+        padding: 16px 20px !important;
+    }
+    .tutorial-balao-mobile::after {
+        display: none !important;
+    }
 }

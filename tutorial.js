@@ -136,6 +136,17 @@ function mostrarEtapa(index) {
  * Posiciona o balão de forma responsiva ao redor do elemento em destaque
  */
 function posicionarBalao(targetEl, posicaoBalao, balaoEl) {
+    if (window.innerWidth <= 600) {
+        // No mobile, remove estilos inline e aplica a classe mobile
+        balaoEl.style.position = '';
+        balaoEl.style.bottom = '';
+        balaoEl.style.top = '';
+        balaoEl.style.left = '';
+        balaoEl.style.transform = '';
+        balaoEl.className = 'tutorial-balao tutorial-balao-mobile';
+        return;
+    }
+
     if (!targetEl || posicaoBalao === 'centro') {
         // Centralização absoluta na tela
         balaoEl.style.position = 'fixed';
