@@ -220,6 +220,8 @@
         border-radius: 20px;
         padding: 0 14px 0 5px;
         gap: 6px;
+        width: auto !important;
+        margin: 0 !important;
     }
     .tutorial-icon {
         width: 30px;
@@ -239,6 +241,8 @@
         border-radius: 17px;
         padding: 0 10px 0 4px;
         gap: 5px;
+        width: auto !important;
+        margin: 0 !important;
     }
     .tutorial-icon {
         width: 26px;

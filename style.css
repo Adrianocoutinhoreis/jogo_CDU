@@ -74,14 +74,21 @@ h1 {
 
 /* Painel de Status */
 #status {
-    font-size: 22px;
+    font-size: 20px;
     margin: clamp(5px, 1.2vh, 10px) 0 clamp(10px, 2vh, 25px) 0;
-    font-weight: bold;
-    color: #060d13;
+    font-weight: 800;
+    color: #0b62a4;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-shadow: 0 2px 4px rgba(11, 98, 164, 0.1);
+    background: #ffffff;
+    border: 2.5px solid #0082c8;
+    padding: 8px 24px;
+    border-radius: 30px;
+    box-shadow: 0 6px 15px rgba(0, 130, 200, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 /* Pratinho CDU (Área de Jogo) */
@@ -812,68 +819,118 @@ button {
 /* Telas Médias (Tablets / Laptops Pequenos - até 850px) */
 @media (max-width: 850px) {
     .container {
-        padding: 25px;
+        padding: 20px 25px;
         max-width: 95%;
         border-radius: 30px;
-        height: 580px;
+        height: auto;
+        min-height: 580px;
+        max-height: 95dvh;
+        overflow-y: auto;
     }
 
     .controles {
-        height: 140px;
+        height: auto;
         margin: 5px 0;
     }
 
     #pratinho {
         gap: 15px;
-        margin: 25px 0;
+        margin: 20px 0;
     }
 
     .zona {
-        width: 180px;
-        height: 250px;
+        width: 160px;
+        height: 220px;
     }
 
     .cubo {
-        width: 15px;
-        height: 15px;
-        margin: 2px;
+        width: 14px;
+        height: 14px;
+        margin: 1.5px;
     }
 
     button {
-        padding: 14px 30px;
-        font-size: 18px;
+        padding: 12px 28px;
+        font-size: 17px;
         border-radius: 12px;
     }
 
     #cartao-vitoria,
     #cartao-inicio {
-        padding: 30px 40px;
+        padding: 25px 35px;
     }
 }
 
 /* Telas Pequenas (Smartphones - até 600px) */
 @media (max-width: 600px) {
+    body {
+        overflow-y: auto;
+        align-items: flex-start;
+        padding: 10px 5px;
+    }
+
     .container {
-        padding: 15px;
+        padding: 15px 12px;
         border-radius: 24px;
         max-width: 98%;
-        height: 520px;
+        height: auto;
+        min-height: calc(100dvh - 20px);
+        justify-content: flex-start;
+        gap: 12px;
+        overflow-y: auto;
+    }
+
+    .placar-header {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+    .placar-lado {
+        padding: 6px 10px;
+        width: 48%; /* Lado a lado no mobile */
+        border-radius: 12px;
+        box-sizing: border-box;
+    }
+
+    .placar-lado.jogador {
+        align-items: center;
+    }
+
+    .placar-lado.cpu {
+        align-items: center;
+    }
+
+    #status {
+        width: 100%;
+        order: 3; /* Exibe o status abaixo das pontuações */
+        font-size: 14px;
+        margin: 8px 0;
+        text-align: center;
+        padding: 6px 16px;
+        border-radius: 20px;
+        box-sizing: border-box;
     }
 
     .controles {
-        height: 165px;
+        height: auto;
         margin: 5px 0;
+        width: 100%;
     }
 
     #pratinho {
-        gap: 8px;
-        margin: 20px 0;
+        gap: 6px;
+        margin: 15px 0;
         flex-wrap: nowrap;
+        width: 100%;
+        justify-content: center;
         /* Garante que os pratos fiquem na mesma linha para manter o sentido visual do CDU */
     }
 
     .zona {
-        width: 100px;
+        flex: 1 1 0%;
+        max-width: 105px;
         height: 140px;
     }
 
@@ -885,13 +942,8 @@ button {
         box-shadow: 0.5px 1px 1.5px rgba(0, 0, 0, 0.4);
     }
 
-    #status {
-        font-size: 15px;
-        margin-bottom: 10px;
-    }
-
     button {
-        padding: 12px 24px;
+        padding: 12px 20px;
         font-size: 16px;
         border-radius: 10px;
         width: 100%;
@@ -900,61 +952,70 @@ button {
         box-sizing: border-box;
     }
 
-    .placar-lado {
-        padding: 6px 8px;
-        width: 33%;
-        border-radius: 12px;
-    }
-
-    .placar-nome {
-        font-size: 10px;
-    }
-
-    .placar-valores {
-        font-size: 12px;
-    }
-
-    #cartao-vitoria,
-    #cartao-inicio {
-        padding: 25px 20px;
-        border-radius: 28px;
-        width: 92%;
-    }
-
-    #vencedor-titulo,
-    #inicio-titulo {
-        font-size: 22px;
-    }
-
-    #vencedor-subtitulo,
-    #inicio-subtitulo {
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .trofeu-icon,
-    .jogo-icon {
-        font-size: 50px;
-        margin-bottom: 5px;
-    }
-
-    .detalhes-placar {
-        padding: 12px;
-        margin-bottom: 20px;
-        border-radius: 14px;
+    /* Evitar que botões de tutorial fiquem gigantes */
+    .tutorial-btn {
+        width: auto !important;
     }
 
     .placar-nome {
         font-size: 11px;
     }
 
+    .placar-valores {
+        font-size: 13px;
+    }
+
+    #cartao-vitoria,
+    #cartao-inicio {
+        padding: 20px 15px;
+        border-radius: 24px;
+        width: 95%;
+    }
+
+    #vencedor-titulo,
+    #inicio-titulo {
+        font-size: 20px;
+    }
+
+    #vencedor-subtitulo,
+    #inicio-subtitulo {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .trofeu-icon,
+    .jogo-icon {
+        font-size: 40px;
+        margin-bottom: 5px;
+    }
+
+    .jogo-icon img {
+        height: 50px;
+    }
+
+    .detalhes-placar {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 14px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .jogador-placar {
+        width: 100%;
+    }
+
+    .vs-divider {
+        margin: 5px 0;
+    }
+
     .placar-pontos {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     #input-nome {
         padding: 12px;
-        font-size: 16px;
+        font-size: 15px;
         border-radius: 10px;
     }
 }

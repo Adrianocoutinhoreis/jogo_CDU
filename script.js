@@ -98,7 +98,7 @@ function atualizarStatus() {
     if (rodadaAtual > CONFIG.maxRodadas) {
         determinarVencedor();
     } else {
-        status.innerText = `Vez do ${jogadores[jogadorAtual].nome} (Rodada ${rodadaAtual})`;
+        status.innerText = `Vez do ${jogadores[jogadorAtual].nome}`;
     }
 
     atualizarDestaquesPlacar();
@@ -280,6 +280,12 @@ function mostrarTempoEsgotado() {
     jogador.pontos.push(0);
     jogador.total += 0;
     atualizarPlacarInterface();
+
+    // Mostra o resultado correto no overlay de tempo esgotado
+    const subtitulo = document.getElementById('tempo-esgotado-subtitulo');
+    if (subtitulo) {
+        subtitulo.innerHTML = `Você não respondeu dentro dos 20 segundos.<br><br>A resposta correta era: <strong style="font-size: 24px; color: #e74c3c;">${valorCorretoRodada}</strong>`;
+    }
 
     // Exibe o overlay de tempo esgotado
     document.getElementById('overlay-tempo-esgotado').style.display = 'flex';
